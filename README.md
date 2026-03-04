@@ -1,36 +1,163 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ⚡ Skill Gap — AI Career Intelligence Platform
 
-## Getting Started
+> Discover your skill gaps, get career matches, and land your dream role with GPT-4o guidance.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-blue)
+![GPT-4o](https://img.shields.io/badge/GPT--4o-Powered-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
+---
+
+## 🎯 Problem Statement
+
+75% of resumes never reach a human recruiter due to ATS rejection.
+Students graduate without knowing which skills they're missing for
+their dream career. There is no single platform that combines skill
+assessment, career matching, resume analysis, and AI coaching.
+
+**Skill Gap solves all of this in one place.**
+
+---
+
+## ✨ Features
+
+### 🧠 Smart Assessment
+- Rate 70+ in-demand skills with proficiency levels
+- 7-dimension aptitude evaluation
+- 3-step guided wizard
+
+### 🎯 Career Match Engine
+- Matches against 15+ career profiles
+- Weighted scoring based on skill proficiency
+- Shows exact missing skills per career
+- Bar chart + Radar chart visualization
+
+### 🤖 AI Career Coach
+- Powered by GPT-4o
+- Personalized advice based on your results
+- Quick question suggestions
+- Real-time chat interface
+
+### 📄 Resume Analyzer
+- Upload PDF or DOCX
+- Real AI-powered ATS scoring
+- Specific improvement suggestions
+- Career match from your resume
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 14, Tailwind CSS |
+| State | Zustand |
+| Charts | Recharts |
+| Auth | NextAuth + Google OAuth |
+| AI | GPT-4o (OpenAI) |
+| Deployment | Vercel |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm 9+
+- OpenAI API Key
+- Google OAuth Credentials
+
+### Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repo
+git clone https://github.com/YOURNAME/skillgap.git
+
+# Go into project
+cd skillgap/skillgap
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Create `.env.local` with:
+```
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+NEXTAUTH_SECRET=your_random_secret
+NEXTAUTH_URL=http://localhost:3000
+OPENAI_API_KEY=your_openai_api_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Run Development Server
+```bash
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Project Structure
+```
+skillgap/
+├── app/
+│   ├── page.jsx          # Landing page
+│   ├── login/            # Google OAuth login
+│   ├── dashboard/        # User dashboard
+│   ├── assessment/       # 3-step assessment wizard
+│   ├── results/          # Career match results + AI coach
+│   ├── resume/           # Resume analyzer
+│   └── api/              # Backend API routes
+├── components/
+│   ├── ui/               # Reusable UI components
+│   └── layout/           # Navbar, Providers
+├── store/
+│   └── appStore.js       # Zustand global state
+├── constants/
+│   ├── skills.js         # 200+ skills database
+│   └── careers.js        # Career profiles
+└── lib/
+    └── scorer.js         # Career matching algorithm
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 👥 Team
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Built with ❤️ for Hackathon 2026
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Name | Role |
+|------|------|
+| Subham | Full Stack + AI Integration |
+| teammate 2 | add role |
+| teammate 3 | add role |
+| teammate 4 | add role |
+| teammate 5 | add role |
+| teammate 6 | add role |
+
+---
+
+## 🗺 Roadmap
+
+- [ ] Real PDF parsing with AI
+- [ ] LinkedIn profile import
+- [ ] Learning resource recommendations
+- [ ] Progress tracking over time
+- [ ] Mobile app (React Native)
+- [ ] Company job matching
+
+---
+
+## 📄 License
+
+MIT License — feel free to use and modify.
+
+---
+
+<p align="center">Built for students, by students. ⚡</p>
