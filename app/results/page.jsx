@@ -4,28 +4,153 @@ import { useRouter } from 'next/navigation'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts'
 
 const CAREER_PROFILES = {
-    'Data Scientist': { skills: ['python', 'statistics', 'sql', 'machine-learning'], aptitude: { Analytical: 80, Mathematical: 75 } },
-    'Software Engineer': { skills: ['javascript', 'python', 'react', 'java'], aptitude: { Technical: 80, Logical: 75 } },
-    'Product Manager': { skills: ['communication', 'leadership', 'analytics'], aptitude: { Communication: 80 } },
-    'UX Designer': { skills: ['figma', 'design', 'user-research'], aptitude: { Creative: 80 } },
-    'Business Analyst': { skills: ['sql', 'analytics', 'communication'], aptitude: { Analytical: 75 } },
-    'DevOps Engineer': { skills: ['docker', 'aws', 'linux'], aptitude: { Technical: 85 } },
+    'Data Scientist': {
+        skills: ['python', 'machine-learning', 'sql', 'statistics', 'pandas',
+            'numpy', 'tensorflow', 'pytorch', 'data-analysis', 'r', 'deep-learning',
+            'scikit-learn', 'data-visualization', 'matplotlib', 'jupyter'],
+        aptitude: { Analytical: 80, Mathematical: 75 }
+    },
+    'Software Engineer': {
+        skills: ['javascript', 'python', 'react', 'nodejs', 'java', 'git',
+            'typescript', 'c++', 'algorithms', 'data-structures', 'sql',
+            'docker', 'rest-api', 'system-design', 'nextjs'],
+        aptitude: { Technical: 80, Logical: 75 }
+    },
+    'Frontend Developer': {
+        skills: ['javascript', 'react', 'html', 'css', 'typescript', 'nextjs',
+            'tailwind', 'vue', 'angular', 'figma', 'sass', 'redux',
+            'webpack', 'ui-design', 'responsive-design'],
+        aptitude: { Creative: 70, Technical: 75 }
+    },
+    'Backend Developer': {
+        skills: ['nodejs', 'python', 'java', 'sql', 'postgresql', 'mongodb',
+            'docker', 'aws', 'rest-api', 'graphql', 'redis', 'kubernetes',
+            'microservices', 'system-design', 'linux'],
+        aptitude: { Technical: 80, Logical: 70 }
+    },
+    'Product Manager': {
+        skills: ['communication', 'leadership', 'analytics', 'agile', 'scrum',
+            'jira', 'roadmapping', 'stakeholder-management', 'product-management',
+            'user-research', 'data-analysis', 'figma', 'project-management'],
+        aptitude: { Communication: 85, Leadership: 80 }
+    },
+    'UX Designer': {
+        skills: ['figma', 'ui-design', 'ux-research', 'wireframing', 'prototyping',
+            'adobe-xd', 'sketch', 'user-research', 'design-systems', 'accessibility',
+            'photoshop', 'illustrator', 'css', 'html'],
+        aptitude: { Creative: 85, Communication: 70 }
+    },
+    'DevOps Engineer': {
+        skills: ['docker', 'kubernetes', 'aws', 'linux', 'bash', 'terraform',
+            'ansible', 'jenkins', 'github-actions', 'monitoring', 'nginx',
+            'python', 'git', 'azure', 'gcp'],
+        aptitude: { Technical: 85, Logical: 75 }
+    },
+    'Data Engineer': {
+        skills: ['python', 'sql', 'apache-spark', 'kafka', 'airflow', 'hadoop',
+            'aws', 'etl', 'postgresql', 'mongodb', 'data-warehousing', 'dbt',
+            'scala', 'bigquery', 'snowflake'],
+        aptitude: { Analytical: 80, Technical: 75 }
+    },
+    'Machine Learning Engineer': {
+        skills: ['python', 'machine-learning', 'tensorflow', 'pytorch', 'mlops',
+            'docker', 'aws', 'deep-learning', 'scikit-learn', 'sql',
+            'model-deployment', 'kubernetes', 'linux', 'git', 'statistics'],
+        aptitude: { Technical: 85, Mathematical: 80 }
+    },
+    'Cybersecurity Analyst': {
+        skills: ['network-security', 'ethical-hacking', 'linux', 'python',
+            'penetration-testing', 'cryptography', 'siem', 'firewalls',
+            'vulnerability-assessment', 'owasp', 'incident-response', 'bash'],
+        aptitude: { Analytical: 80, Technical: 80 }
+    },
+    'Business Analyst': {
+        skills: ['sql', 'analytics', 'communication', 'excel', 'powerbi',
+            'tableau', 'project-management', 'agile', 'documentation',
+            'stakeholder-management', 'python', 'data-analysis'],
+        aptitude: { Analytical: 80, Communication: 75 }
+    },
+    'Mobile Developer': {
+        skills: ['react-native', 'flutter', 'swift', 'kotlin', 'android',
+            'ios', 'javascript', 'dart', 'firebase', 'git',
+            'ui-design', 'rest-api', 'java'],
+        aptitude: { Technical: 80, Creative: 65 }
+    },
+    'Cloud Architect': {
+        skills: ['aws', 'azure', 'gcp', 'terraform', 'kubernetes', 'docker',
+            'microservices', 'system-design', 'networking', 'security',
+            'linux', 'python', 'devops'],
+        aptitude: { Technical: 85, Analytical: 75 }
+    },
+    'AI Engineer': {
+        skills: ['python', 'llm', 'langchain', 'openai-api', 'pytorch',
+            'tensorflow', 'rag', 'fine-tuning', 'docker', 'fastapi',
+            'machine-learning', 'nlp', 'deep-learning'],
+        aptitude: { Technical: 85, Mathematical: 75 }
+    },
+    'Full Stack Developer': {
+        skills: ['javascript', 'react', 'nodejs', 'sql', 'mongodb', 'html',
+            'css', 'typescript', 'git', 'docker', 'rest-api', 'aws',
+            'nextjs', 'postgresql'],
+        aptitude: { Technical: 80, Logical: 70 }
+    },
+}
+
+const LEVEL_WEIGHTS = {
+    beginner: 0.25,
+    intermediate: 0.6,
+    advanced: 0.85,
+    expert: 1.0,
 }
 
 function calculateResults(assessment) {
     const { skills = [], aptitude = {} } = assessment
+
+    // Handle both old format (strings) and new format (objects)
+    const normalizedSkills = skills.map(s =>
+        typeof s === 'string'
+            ? { name: s.toLowerCase().trim(), level: 'intermediate' }
+            : { name: s.name.toLowerCase().trim(), level: s.level || 'intermediate' }
+    )
+
     return Object.entries(CAREER_PROFILES).map(([career, profile]) => {
-        const skillMatches = skills.filter(s => profile.skills.includes(s.toLowerCase()))
-        const skillScore = (skillMatches.length / profile.skills.length) * 50
-        const aptScore = Object.entries(profile.aptitude).reduce((sum, [dim, req]) => {
-            return sum + Math.min((aptitude[dim] || 50) / req, 1) * 25
+        // Skill matching (case insensitive + partial match)
+        const skillMatches = profile.skills.filter(required =>
+            normalizedSkills.some(s =>
+                s.name.includes(required) || required.includes(s.name)
+            )
+        )
+
+        // Weighted skill score based on proficiency
+        const weightedScore = profile.skills.reduce((total, required) => {
+            const match = normalizedSkills.find(s =>
+                s.name.includes(required) || required.includes(s.name)
+            )
+            if (match) {
+                return total + (LEVEL_WEIGHTS[match.level] || 0.6)
+            }
+            return total
         }, 0)
-        const score = Math.round(Math.min(25 + skillScore + aptScore, 99))
+
+        const skillScore = (weightedScore / profile.skills.length) * 55
+        // Aptitude matching
+        const aptScores = Object.entries(profile.aptitude).map(([dim, req]) => {
+            const userVal = aptitude[dim] || 50
+            return Math.min(userVal / req, 1) * 20
+        })
+        const aptScore = aptScores.reduce((a, b) => a + b, 0)
+
+        const score = Math.round(Math.min(20 + skillScore + aptScore, 99))
+
         return {
             career,
             score,
             skillMatches,
-            missingSkills: profile.skills.filter(s => !skills.includes(s))
+            missingSkills: profile.skills
+                .filter(s => !normalizedSkills.some(u =>
+                    u.name.includes(s) || s.includes(u.name)
+                ))
+                .slice(0, 4)
         }
     }).sort((a, b) => b.score - a.score)
 }
