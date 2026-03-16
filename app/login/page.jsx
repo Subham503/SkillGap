@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 // ─── Matrix Background Canvas ─────────────────────────────
 function MatrixBackground() {
@@ -257,7 +258,7 @@ export default function LoginPage() {
 
                 {/* Back to home */}
                 <div style={{ marginTop: '1.75rem', textAlign: 'center' }}>
-                    <a
+                    <Link
                         href="/"
                         style={{
                             fontSize: '0.8125rem',
@@ -269,7 +270,7 @@ export default function LoginPage() {
                         onMouseLeave={(e) => (e.target.style.color = 'var(--text-faint)')}
                     >
                         ← Back to home
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

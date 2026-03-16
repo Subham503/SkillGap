@@ -172,6 +172,13 @@ export default function ResultsPage() {
         setResults(calculateResults(data))
     }, [])
 
+    // ← ADD THIS RIGHT HERE
+    useEffect(() => {
+        if (window.location.hash === '#coach') {
+            setActiveTab('coach')
+        }
+    }, [])
+
     const sendMessage = async () => {
         if (!input.trim() || loading) return
         const userMsg = input.trim()

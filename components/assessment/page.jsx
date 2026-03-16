@@ -106,8 +106,8 @@ export default function AssessmentPage() {
                                     className="w-full bg-[#070b16] border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-blue-500 transition-colors cursor-pointer appearance-none"
                                 >
                                     <option value="High School">High School</option>
-                                    <option value="Bachelor's">Bachelor's Degree</option>
-                                    <option value="Master's">Master's Degree</option>
+                                    <option value="Bachelor's">Bachelor&apos;s Degree</option>
+                                    <option value="Master's">Master&apos;s Degree</option>
                                     <option value="PhD">PhD</option>
                                 </select>
                             </div>

@@ -4,7 +4,12 @@ import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
-const NAV_LINKS = ['Features', 'Careers', 'About'];
+const NAV_LINKS = [
+    { label: 'Features', href: '#features' },
+    { label: 'AI Coach', href: '/results#coach' },
+    { label: 'Resume', href: '/resume' },
+    { label: 'Assessment', href: '/assessment' },
+];
 
 export default function Navbar() {
     const { data: session, status } = useSession();
@@ -71,20 +76,20 @@ export default function Navbar() {
                 >
                     {NAV_LINKS.map((item) => (
                         <a
-                            key={item}
-                            href="#"
-                            onMouseEnter={() => setHovered(item)}
+                            key={item.label}
+                            href={item.href}
+                            onMouseEnter={() => setHovered(item.label)}
                             onMouseLeave={() => setHovered(null)}
                             style={{
                                 fontFamily: 'var(--font-body)',
                                 fontSize: '0.9rem',
                                 fontWeight: 500,
-                                color: hovered === item ? 'var(--text-primary)' : 'var(--text-muted)',
+                                color: hovered === item.label ? 'var(--text-primary)' : 'var(--text-muted)',
                                 textDecoration: 'none',
                                 transition: 'color 150ms ease',
                             }}
                         >
-                            {item}
+                            {item.label}
                         </a>
                     ))}
                 </nav>
@@ -195,8 +200,8 @@ export default function Navbar() {
                                 >
                                     {[
                                         { label: '📊 Dashboard', href: '/dashboard' },
-                                        { label: '🎯 Assess Skills', href: '/assess' },
-                                        { label: '👤 Profile', href: '/profile' },
+                                        { label: '🎯 Assess Skills', href: '/assessment' },
+                                        { label: '📄 Resume', href: '/resume' },
                                     ].map((item) => (
                                         <a
                                             key={item.label}
@@ -254,6 +259,6 @@ export default function Navbar() {
                     )}
                 </div>
             </div>
-        </header>
+        </header >
     );
 }

@@ -439,7 +439,7 @@ export default function AssessmentPage() {
                                             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                                         >
                                             <span>✨</span>
-                                            Add "{skillInput}" as custom skill
+                                            Add &quot;{skillInput}&quot; as custom skill
                                         </div>
                                     )}
                                 </div>

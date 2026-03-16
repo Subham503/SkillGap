@@ -74,6 +74,11 @@ export default function ResumePage() {
 
     const handleFile = async (file) => {
         if (!file) return
+        console.log('[resume/page] handleFile called with:', {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+        })
         const valid = [
             'application/pdf',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
@@ -92,6 +97,7 @@ export default function ResumePage() {
     }
 
     const startUpload = (file) => {
+        console.log('[resume/page] startUpload called')
         setState('uploading')
         setProgress(0)
         let p = 0
@@ -109,6 +115,7 @@ export default function ResumePage() {
     }
 
     const startParsing = async (file) => {
+        console.log('[resume/page] startParsing called')
         setState('parsing')
         setParseStep(0)
 
@@ -127,12 +134,28 @@ export default function ResumePage() {
             const formData = new FormData()
             formData.append('resume', file)
 
+            console.log('[resume/page] Sending POST /api/resume with file:', {
+                name: file.name,
+                type: file.type,
+                size: file.size,
+            })
+
             const res = await fetch('/api/resume', {
                 method: 'POST',
                 body: formData,
             })
 
-            const data = await res.json()
+            console.log('[resume/page] Response status from /api/resume:', res.status)
+
+            let data
+            try {
+                data = await res.json()
+            } catch (parseError) {
+                console.error('[resume/page] Failed to parse JSON from /api/resume:', parseError)
+                throw parseError
+            }
+
+            console.log('[resume/page] Parsed JSON from /api/resume:', data)
 
             if (data.error) {
                 alert('Error: ' + data.error)
@@ -146,6 +169,7 @@ export default function ResumePage() {
             setTimeout(() => setState('done'), 600)
 
         } catch (error) {
+            console.error('[resume/page] startParsing error:', error)
             alert('Something went wrong. Please try again.')
             setState('idle')
         }
