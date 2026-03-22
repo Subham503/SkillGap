@@ -6,18 +6,39 @@ export async function POST(req) {
   try {
     const { message, context } = await req.json()
 
+    const systemPrompt = context.mode === 'skill-analysis'
+      ? `You are an expert AI career advisor for students.
+The user has these skills: ${context.skills?.join(', ')}.
+
+Analyze their skills and respond in this exact format:
+
+🎯 Top Career Matches:
+- [Career 1] — why it fits
+- [Career 2] — why it fits
+- [Career 3] — why it fits
+
+📈 Skills to Add Next:
+- [skill] — brief reason
+- [skill] — brief reason
+
+💡 Quick Tip:
+[One specific actionable tip based on their skill set]
+
+Keep it concise, specific and encouraging.`
+      : `You are an expert AI career coach for students.
+The user's top career match is ${context.topCareer} with ${context.score}% compatibility.
+Their current skills are: ${context.skills?.map(s =>
+        typeof s === 'string' ? s : `${s.name} (${s.level})`
+      ).join(', ') || 'none listed'}.
+Give specific, actionable, encouraging advice in 2-3 sentences.`
+
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
-      max_tokens: 300,
+      max_tokens: context.mode === 'skill-analysis' ? 500 : 300,
       messages: [
         {
           role: 'system',
-          content: `You are an expert AI career coach for students.
-The user's top career match is ${context.topCareer} with ${context.score}% compatibility.
-Their current skills are: ${context.skills?.map(s =>
-  typeof s === 'string' ? s : `${s.name} (${s.level})`
-).join(', ') || 'none listed'}.
-Give specific, actionable, encouraging advice in 2-3 sentences.`
+          content: systemPrompt
         },
         {
           role: 'user',
@@ -37,11 +58,3 @@ Give specific, actionable, encouraging advice in 2-3 sentences.`
     }, { status: 500 })
   }
 }
-```
-
----
-
-## For Resume — Use Gemini Just for PDF
-
-Groq doesn't support file uploads. So we use a **hybrid approach:**
-```

@@ -184,7 +184,19 @@ export default function AssessmentPage() {
                                     <ChevronLeft className="w-5 h-5" /> Previous
                                 </button>
                                 <button
-                                    onClick={() => setStep(3)}
+                                    onClick={() => {
+                                        if (skills.length === 0) {
+                                            alert('Please add at least 1 skill to continue!')
+                                            return
+                                        }
+                                        if (skills.length < 3) {
+                                            const confirm = window.confirm(
+                                                'You have only ' + skills.length + ' skill(s). Add more skills for accurate career matching. Continue anyway?'
+                                            )
+                                            if (!confirm) return
+                                        }
+                                        setStep(3)
+                                    }}
                                     className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-medium transition-colors flex items-center gap-2"
                                 >
                                     Next Step <ChevronRight className="w-5 h-5" />

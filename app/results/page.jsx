@@ -180,31 +180,55 @@ export default function ResultsPage() {
     }, [])
 
     const sendMessage = async () => {
-        if (!input.trim() || loading) return
-        const userMsg = input.trim()
-        setInput('')
-        setMessages(m => [...m, { role: 'user', text: userMsg }])
-        setLoading(true)
-        try {
-            const res = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: userMsg,
-                    context: {
-                        topCareer: results[0]?.career,
-                        score: results[0]?.score,
-                        skills: assessment?.skills || [],
-                    }
-                })
-            })
-            const data = await res.json()
-            setMessages(m => [...m, { role: 'ai', text: data.reply }])
-        } catch {
-            setMessages(m => [...m, { role: 'ai', text: 'Sorry, something went wrong. Please try again.' }])
+  if (!input.trim() || loading) return
+  const userMsg = input.trim()
+  setInput('')
+  setMessages(m => [...m, { role: 'user', text: userMsg }])
+  setLoading(true)
+
+  // Timeout after 15 seconds
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 15000)
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify({
+        message: userMsg,
+        context: {
+          topCareer: results[0]?.career,
+          score: results[0]?.score,
+          skills: assessment?.skills || [],
         }
-        setLoading(false)
+      })
+    })
+
+    clearTimeout(timeout)
+
+    if (!res.ok) {
+      throw new Error('Server error')
     }
+
+    const data = await res.json()
+
+    if (data.error) {
+      throw new Error(data.error)
+    }
+
+    setMessages(m => [...m, { role: 'ai', text: data.reply }])
+
+  } catch (err) {
+    clearTimeout(timeout)
+    const msg = err.name === 'AbortError'
+      ? '⏱ Request timed out. Please try again.'
+      : '⚠️ AI coach is temporarily unavailable. Please try again in a moment.'
+    setMessages(m => [...m, { role: 'ai', text: msg }])
+  }
+
+  setLoading(false)
+}
 
     if (!results.length) return (
         <div style={{ minHeight: '100vh', background: '#070b16', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
