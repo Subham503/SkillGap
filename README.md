@@ -131,23 +131,6 @@ skillgap/
     └── scorer.js         # Career matching algorithm
 ```
 
----
-
-## 👥 Team
-
-Built with ❤️ for Hackathon 2026
-
-| Name | Role |
-|------|------|
-| Subham | Full Stack + AI Integration |
-| teammate 2 | add role |
-| teammate 3 | add role |
-| teammate 4 | add role |
-| teammate 5 | add role |
-| teammate 6 | add role |
-
----
-
 ## 🗺 Roadmap
 
 - [ ] Real PDF parsing with AI
