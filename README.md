@@ -59,6 +59,11 @@ assessment, career matching, resume analysis, and AI coaching.
 | Deployment | Vercel |
 
 ---
+## 🗺️ Project Workflow
+
+[![View Flowchart](https://img.shields.io/badge/Figma-View%20Flowchart-purple?logo=figma)](https://www.figma.com/board/AufRwNtpfvgFhYJqh8Zr3h/Skill-Gap-%E2%80%94-Project-Workflow?node-id=0-1&t=nvneljp2kTkZbkv6-1)
+
+---
 
 ## 🚀 Getting Started
 
