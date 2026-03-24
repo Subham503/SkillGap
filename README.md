@@ -114,10 +114,11 @@ GROQ_API_KEY=your_groq_api_key
 ```bash
 npm run dev
 ```
+## Run Locally
+[Open Local Server](http://localhost:3000)
 
-Open [http://localhost:3000](http://localhost:3000)
-
-Demo [Cick](https://skill-gap-3lrf.vercel.app)
+## Live Demo
+[Open Website](https://skill-gap-3lrf.vercel.app)
 ---
 
 ## 📁 Project Structure
