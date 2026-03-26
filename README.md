@@ -141,33 +141,10 @@ skillgap/
 ├── store/
 │   └── appStore.js           # Zustand global state
 ├── constants/
-│   ├── skills.js             # 200+ skills database
-│   └── careers.js            # 15+ career profiles
-└── lib/                      # Utility functions
-```
-
----
-
-## 🎯 User Flow
-```
-Landing Page
-    ↓
-Google Login (OAuth)
-    ↓
-Dashboard
-    ↓
-3-Step Assessment
-(Academic → Skills + Proficiency → Aptitude)
-    ↓
-✨ AI Skill Analysis (optional, Groq)
-    ↓
-Career Match Results
-(AI-powered + Bar Chart + Radar Chart)
-    ↓
-AI Career Coach Chat (Groq LLaMA)
-    ↓
-Resume Analyzer
-(Upload → ATS Score → Suggestions → Career Match)
+│   ├── skills.js         # 200+ skills database
+│   └── careers.js        # Career profiles
+└── lib/
+    └── scorer.js         # Career matching algorithm
 ```
 
 ---
@@ -180,6 +157,21 @@ Resume Analyzer
 | Career Matching | Groq LLaMA 3.3 70B | AI-powered compatibility scores |
 | Career Coach | Groq LLaMA 3.3 70B | Personalized career advice chat |
 | Resume Analyzer | Groq LLaMA 3.3 70B | ATS scoring + improvement tips |
+
+---
+
+## 👥 Team
+
+Built with ❤️ for Hackathon 2026
+
+| Name | Role |
+|------|------|
+| Subham | Full Stack + AI Integration |
+| Teammate 2 | add role |
+| Teammate 3 | add role |
+| Teammate 4 | add role |
+| Teammate 5 | add role |
+| Teammate 6 | add role |
 
 ---
 
