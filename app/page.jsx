@@ -13,6 +13,7 @@ const FEATURES = [
         badgeClass: 'badge-blue',
         accentColor: 'var(--color-blue)',
         glowColor: 'rgba(59, 130, 246, 0.08)',
+        href: '/login?callbackUrl=/assessment',
     },
     {
         icon: '🎯',
@@ -23,16 +24,18 @@ const FEATURES = [
         badgeClass: 'badge-green',
         accentColor: 'var(--color-green)',
         glowColor: 'rgba(34, 197, 94, 0.08)',
+        href: '/login?callbackUrl=/results',
     },
     {
         icon: '🤖',
         title: 'AI Coach',
         description:
             'Your personal AI career coach crafts a day-by-day learning plan with curated resources tailored to close your gaps fast.',
-        badge: 'Coming Soon',
-        badgeClass: 'badge-amber',
-        accentColor: 'var(--color-amber)',
-        glowColor: 'rgba(245, 158, 11, 0.08)',
+        badge: 'AI Powered',
+        badgeClass: 'badge-purple',
+        accentColor: 'var(--color-purple)',
+        glowColor: 'rgba(168, 85, 247, 0.08)',
+        href: '/login?callbackUrl=/results#coach',
     },
 ];
 
@@ -184,7 +187,7 @@ export default function LandingPage() {
                     >
                         Get Started Free →
                     </a>
-                    <a href="/login" className="btn btn-secondary btn-lg">
+                    <a href="/login?callbackUrl=/resume" className="btn btn-secondary btn-lg">
                         📄 Analyze Resume
                     </a>
                 </div>
@@ -313,7 +316,7 @@ export default function LandingPage() {
 
                             {/* Learn more link */}
                             <a
-                                href="#"
+                                href={f.href}
                                 style={{
                                     marginTop: 'auto',
                                     fontSize: '0.875rem',
@@ -450,7 +453,7 @@ export default function LandingPage() {
 
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                         <a
-                            href="/login"
+                            href="/login?callbackUrl=/assessment"
                             className="btn btn-primary btn-lg"
                             style={{ boxShadow: '0 4px 24px rgba(59,130,246,0.4)' }}
                         >

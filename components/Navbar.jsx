@@ -6,9 +6,9 @@ import Image from 'next/image';
 
 const NAV_LINKS = [
     { label: 'Features', href: '#features' },
-    { label: 'AI Coach', href: '/results#coach' },
-    { label: 'Resume', href: '/resume' },
-    { label: 'Assessment', href: '/assessment' },
+    { label: 'AI Coach', href: '/login?callbackUrl=/results#coach' },
+    { label: 'Resume', href: '/login?callbackUrl=/resume' },
+    { label: 'Assessment', href: '/login?callbackUrl=/assessment' },
 ];
 
 export default function Navbar() {
