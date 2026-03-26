@@ -158,20 +158,6 @@ skillgap/
 | Career Coach | Groq LLaMA 3.3 70B | Personalized career advice chat |
 | Resume Analyzer | Groq LLaMA 3.3 70B | ATS scoring + improvement tips |
 
----
-
-## 👥 Team
-
-Built with ❤️ for Hackathon 2026
-
-| Name | Role |
-|------|------|
-| Subham | Full Stack + AI Integration |
-| Teammate 2 | add role |
-| Teammate 3 | add role |
-| Teammate 4 | add role |
-| Teammate 5 | add role |
-| Teammate 6 | add role |
 
 ---
 
