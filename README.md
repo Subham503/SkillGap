@@ -26,7 +26,7 @@ assessment, career matching, resume analysis, and AI coaching.
 - Rate 200+ in-demand skills with proficiency levels (Beginner → Expert)
 - 7-dimension aptitude evaluation with descriptions
 - 3-step guided wizard with keyboard navigation
-- ✨ AI Skill Analysis powered by Groq LLaMA 3.3 70B
+- AI Skill Analysis powered by Groq LLaMA 3.3 70B
 - Smart warnings for insufficient skills
 - Autocomplete search with 200+ skills database
 
@@ -115,7 +115,7 @@ GROQ_API_KEY=your_groq_api_key
 npm run dev
 ```
 ### Run Locally
-[Open Local Server](http://localhost:3000)
+(http://localhost:3000)
 
 ### Live Demo
 [Open Website](https://skill-gap-3lrf.vercel.app)
