@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
 // ─── Feature Cards Data ────────────────────────────────────
 const FEATURES = [
@@ -13,7 +14,7 @@ const FEATURES = [
         badgeClass: 'badge-blue',
         accentColor: 'var(--color-blue)',
         glowColor: 'rgba(59, 130, 246, 0.08)',
-        href: '/login?callbackUrl=/assessment',
+        path: '/assessment',
     },
     {
         icon: '🎯',
@@ -24,7 +25,7 @@ const FEATURES = [
         badgeClass: 'badge-green',
         accentColor: 'var(--color-green)',
         glowColor: 'rgba(34, 197, 94, 0.08)',
-        href: '/login?callbackUrl=/results',
+        path: '/results',
     },
     {
         icon: '🤖',
@@ -35,7 +36,7 @@ const FEATURES = [
         badgeClass: 'badge-purple',
         accentColor: 'var(--color-purple)',
         glowColor: 'rgba(168, 85, 247, 0.08)',
-        href: '/login?callbackUrl=/results#coach',
+        path: '/results#coach',
     },
 ];
 
@@ -81,6 +82,13 @@ function StatItem({ value, label }) {
 
 // ─── Landing Page ──────────────────────────────────────────
 export default function LandingPage() {
+    const { data: session } = useSession();
+
+    const getLink = (path) => {
+        if (session) return path;
+        return `/login?callbackUrl=${encodeURIComponent(path)}`;
+    };
+
     return (
         <div style={{ overflow: 'hidden' }}>
 
@@ -181,13 +189,13 @@ export default function LandingPage() {
                     style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}
                 >
                     <a
-                        href="/login"
+                        href={getLink('/assessment')}
                         className="btn btn-primary btn-lg"
                         style={{ boxShadow: '0 4px 24px rgba(59,130,246,0.35)' }}
                     >
                         Get Started Free →
                     </a>
-                    <a href="/login?callbackUrl=/resume" className="btn btn-secondary btn-lg">
+                    <a href={getLink('/resume')} className="btn btn-secondary btn-lg">
                         📄 Analyze Resume
                     </a>
                 </div>
@@ -316,7 +324,7 @@ export default function LandingPage() {
 
                             {/* Learn more link */}
                             <a
-                                href={f.href}
+                                href={getLink(f.path)}
                                 style={{
                                     marginTop: 'auto',
                                     fontSize: '0.875rem',
@@ -453,7 +461,7 @@ export default function LandingPage() {
 
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                         <a
-                            href="/login?callbackUrl=/assessment"
+                            href={getLink('/assessment')}
                             className="btn btn-primary btn-lg"
                             style={{ boxShadow: '0 4px 24px rgba(59,130,246,0.4)' }}
                         >

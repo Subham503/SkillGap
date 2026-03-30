@@ -5,10 +5,10 @@ import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
 const NAV_LINKS = [
-    { label: 'Features', href: '#features' },
-    { label: 'AI Coach', href: '/login?callbackUrl=/results#coach' },
-    { label: 'Resume', href: '/login?callbackUrl=/resume' },
-    { label: 'Assessment', href: '/login?callbackUrl=/assessment' },
+    { label: 'Features', path: '#features' },
+    { label: 'AI Coach', path: '/results#coach' },
+    { label: 'Resume', path: '/resume' },
+    { label: 'Assessment', path: '/assessment' },
 ];
 
 export default function Navbar() {
@@ -18,6 +18,12 @@ export default function Navbar() {
 
     const isLoading = status === 'loading';
     const isLoggedIn = !!session?.user;
+
+    const getLink = (path) => {
+        if (path.startsWith('#')) return path; // Anchors
+        if (isLoggedIn) return path;
+        return `/login?callbackUrl=${encodeURIComponent(path)}`;
+    };
 
     return (
         <header
@@ -77,7 +83,7 @@ export default function Navbar() {
                     {NAV_LINKS.map((item) => (
                         <a
                             key={item.label}
-                            href={item.href}
+                            href={getLink(item.path)}
                             onMouseEnter={() => setHovered(item.label)}
                             onMouseLeave={() => setHovered(null)}
                             style={{
