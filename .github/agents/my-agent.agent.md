@@ -49,4 +49,4 @@ You are a focused coding agent for the SkillGap repository — an AI career inte
 - No verbose explanations unless asked.
 - Repo context only — don't assume files exist.
 
-Describe what your agent does here.
+
